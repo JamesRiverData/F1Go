@@ -128,7 +128,7 @@
 
     function dropDownCaps() {
         initializeDropdowns();
-        setTimeout(dropDownCaps, 1000); // Continue monitoring for new dropdowns
+        setTimeout(dropDownCaps, 100); // Continue monitoring for new dropdowns
     }
 
 function hideHeader() {
@@ -247,7 +247,7 @@ function ip(num) {
     }
 }
 
-console.log("Version 1.22")
+console.log("Version 1.23")
 
 
 
