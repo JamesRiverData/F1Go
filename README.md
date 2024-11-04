@@ -53,33 +53,46 @@ hide element takes an array to then loop throught to hide thoes input elements a
 
 copy from here------------------------------------------------------------------------------------------------------------
 
-    <script src="https://zethlightning.github.io/F1Go/F1Go.js" defer></script>
-    <script defer>
-function runInlineScript() {
-    try {
-        if (typeof window.radioButtonCaps === 'function') {
+<script src="https://jamesriverdata.github.io/F1Go/F1Go.js" defer></script>
+<script defer>
+    function runInlineScript() {
+        try {
+            if (typeof window.radioButtonCaps === 'function') {
+    
+                //Write code here --------------------
+    
+    
+    
 
-            //Write code here --------------------
-
-
-
-
-
-
-
-
-            //------------------------------------
-
-            console.log("Function executed successfully.");
-        } else {
-            throw new Error("radioButtonCaps function not loaded yet");
+    
+    
+    
+    
+                //------------------------------------
+    
+                console.log("Function executed successfully.");
+            } else {
+                throw new Error("radioButtonCaps function not loaded yet");
+            }
+        } catch (error) {
+            console.error("Error in runInlineScript:", error.message);
+            // Retry after 100ms if radioButtonCaps is not available
+            setTimeout(runInlineScript, 100);
         }
-    } catch (error) {
-        console.error("Error in runInlineScript:", error.message);
-        // Retry after 100ms if radioButtonCaps is not available
-        setTimeout(runInlineScript, 100);
     }
-}
+    
+    // Run the script initially
+    setTimeout(runInlineScript, 100);
+    /*
+    radioVar
+    waitForElement
+    hideElement
+    radioButtonCaps
+    dropDownCaps
+    hideHeader
+         */
+    </script>
+    
 
 // Run the script initially
 setTimeout(runInlineScript, 100);
@@ -102,7 +115,7 @@ to use the css I would use this
 
 copy form here ----------------------------------------------------------------------------------------------------------------
 
-<link href="https://zethlightning.github.io/F1Go/F1Go.css" rel="stylesheet">
+<link href="https://jamesriverdata.github.io/F1Go/F1Go.css" rel="stylesheet">
 <style>
 :root {
     --primary-color: #00a3e0;
