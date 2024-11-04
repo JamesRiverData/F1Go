@@ -91,19 +91,6 @@ copy from here------------------------------------------------------------------
     hideHeader
          */
     </script>
-    
-
-// Run the script initially
-setTimeout(runInlineScript, 100);
-/*
-radioVar
-waitForElement
-hideElement
-radioButtonCaps
-dropDownCaps
-hideHeader
-     */
-</script>
 
 
 TO here -----------------------------------------------------------------------------------------------------------------------

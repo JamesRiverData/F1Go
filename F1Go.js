@@ -61,13 +61,11 @@
     }
 
     let processedDropdowns = [];
- 
 
- 
     function modifyText(text) {
         return text.replace(/ - \d+ remaining/, '');
     }
- 
+
     function handleOptionClick(event) {
         const clickedOption = event.target;
         if (clickedOption.classList.contains('ss__option')) {
@@ -75,7 +73,7 @@
             clickedOption.textContent = modifyText(clickedOption.textContent);
         }
     }
- 
+
     function updateSelectedValue(dropdown) {
         const selectedValue = dropdown.querySelector('.ss__value-container');
         if (selectedValue) {
@@ -86,7 +84,7 @@
             }
         }
     }
- 
+
     function observeDropdownChanges(dropdown) {
         const observer = new MutationObserver(mutations => {
             mutations.forEach(mutation => {
@@ -101,17 +99,17 @@
                 }
             });
         });
- 
+
         observer.observe(dropdown, { childList: true, subtree: true });
     }
- 
+
     function interceptOptionClicks(dropdown) {
         dropdown.addEventListener('click', function (event) {
             handleOptionClick(event);
             setTimeout(() => updateSelectedValue(dropdown), 100);
         });
     }
- 
+
     function setupDropdown(dropdown) {
         if (!processedDropdowns.includes(dropdown)) {
             console.log('Setting up dropdown:', dropdown);
@@ -121,17 +119,17 @@
             processedDropdowns.push(dropdown);
         }
     }
- 
-    function initializeDropdowns(elements) {
+
+    function initializeDropdowns() {
+        const elements = document.querySelectorAll('div[data-qa="field-dropdown-view-select"]'); // Adjust selector as needed
+        console.log('Form elements found, initializing dropdowns...');
         elements.forEach(dropdown => setupDropdown(dropdown));
     }
- 
+
     function dropDownCaps() {
-        
-            console.log('Form elements found, initializing dropdowns...');
-            initializeDropdowns(elements);
-            setTimeout(dropDownCaps, 1000); // Continue monitoring for new dropdowns
-        };
+        initializeDropdowns();
+        setTimeout(dropDownCaps, 1000); // Continue monitoring for new dropdowns
+    }
 
 function hideHeader() {
     const imgElement = document.querySelector('.form-header.no-portal img'); // Select the image element directly
@@ -249,7 +247,7 @@ function ip(num) {
     }
 }
 
-
+console.log("Version 1.22")
 
 
 
