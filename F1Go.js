@@ -61,75 +61,77 @@
     }
 
     let processedDropdowns = [];
+ 
 
-function modifyDropdownText(text) {
-    return text.replace(/ - \d+ remaining/, '');
-}
-
-function handleDropdownOptionClick(event) {
-    const clickedOption = event.target;
-    if (clickedOption.classList.contains('ss__option')) {
-        console.log('Option clicked:', clickedOption.textContent);
-        clickedOption.textContent = modifyDropdownText(clickedOption.textContent);
+ 
+    function modifyText(text) {
+        return text.replace(/ - \d+ remaining/, '');
     }
-}
-
-function updateDropdownSelectedValue(dropdown) {
-    const selectedValue = dropdown.querySelector('.ss__value-container');
-    if (selectedValue) {
-        const span = selectedValue.querySelector('span') || selectedValue.querySelector('div');
-        if (span && span.textContent.includes('remaining')) {
-            span.textContent = modifyDropdownText(span.textContent);
-            console.log('Updated selected value:', span.textContent);
+ 
+    function handleOptionClick(event) {
+        const clickedOption = event.target;
+        if (clickedOption.classList.contains('ss__option')) {
+            console.log('Option clicked:', clickedOption.textContent);
+            clickedOption.textContent = modifyText(clickedOption.textContent);
         }
     }
-}
-
-function observeDropdownChanges(dropdown) {
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'childList' || mutation.type === 'subtree') {
-                console.log('Mutation detected in dropdown:', dropdown);
-                dropdown.querySelectorAll('.ss__option').forEach(option => {
-                    if (option.textContent.includes('remaining')) {
-                        option.textContent = modifyDropdownText(option.textContent);
-                    }
-                });
-                updateDropdownSelectedValue(dropdown);
+ 
+    function updateSelectedValue(dropdown) {
+        const selectedValue = dropdown.querySelector('.ss__value-container');
+        if (selectedValue) {
+            const span = selectedValue.querySelector('span') || selectedValue.querySelector('div');
+            if (span && span.textContent.includes('remaining')) {
+                span.textContent = modifyText(span.textContent);
+                console.log('Updated selected value:', span.textContent);
             }
-        });
-    });
-
-    observer.observe(dropdown, { childList: true, subtree: true });
-}
-
-function interceptDropdownOptionClicks(dropdown) {
-    dropdown.addEventListener('click', function (event) {
-        handleDropdownOptionClick(event);
-        setTimeout(() => updateDropdownSelectedValue(dropdown), 100);
-    });
-}
-
-function setupDropdown(dropdown) {
-    if (!processedDropdowns.includes(dropdown)) {
-        console.log('Setting up dropdown:', dropdown);
-        observeDropdownChanges(dropdown);
-        interceptDropdownOptionClicks(dropdown);
-        updateDropdownSelectedValue(dropdown);
-        processedDropdowns.push(dropdown);
+        }
     }
-}
-
-function initializeDropdowns(elements) {
-    elements.forEach(dropdown => setupDropdown(dropdown));
-}
-
-function dropDownCaps() {
-    const elements = document.querySelectorAll('.your-dropdown-class'); // Adjust selector as needed
-    console.log('Form elements found, initializing dropdowns...');
-    initializeDropdowns(elements);
-    setTimeout(dropDownCaps, 1000); // Continue monitoring for new dropdowns
-}
+ 
+    function observeDropdownChanges(dropdown) {
+        const observer = new MutationObserver(mutations => {
+            mutations.forEach(mutation => {
+                if (mutation.type === 'childList' || mutation.type === 'subtree') {
+                    console.log('Mutation detected in dropdown:', dropdown);
+                    dropdown.querySelectorAll('.ss__option').forEach(option => {
+                        if (option.textContent.includes('remaining')) {
+                            option.textContent = modifyText(option.textContent);
+                        }
+                    });
+                    updateSelectedValue(dropdown);
+                }
+            });
+        });
+ 
+        observer.observe(dropdown, { childList: true, subtree: true });
+    }
+ 
+    function interceptOptionClicks(dropdown) {
+        dropdown.addEventListener('click', function (event) {
+            handleOptionClick(event);
+            setTimeout(() => updateSelectedValue(dropdown), 100);
+        });
+    }
+ 
+    function setupDropdown(dropdown) {
+        if (!processedDropdowns.includes(dropdown)) {
+            console.log('Setting up dropdown:', dropdown);
+            observeDropdownChanges(dropdown);
+            interceptOptionClicks(dropdown);
+            updateSelectedValue(dropdown);
+            processedDropdowns.push(dropdown);
+        }
+    }
+ 
+    function initializeDropdowns(elements) {
+        elements.forEach(dropdown => setupDropdown(dropdown));
+    }
+ 
+    function dropDownCaps() {
+        
+            console.log('Form elements found, initializing dropdowns...');
+            initializeDropdowns(elements);
+            setTimeout(dropDownCaps, 1000); // Continue monitoring for new dropdowns
+        };
 
 function hideHeader() {
     const imgElement = document.querySelector('.form-header.no-portal img'); // Select the image element directly
