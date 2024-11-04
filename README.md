@@ -52,7 +52,8 @@ hide element takes an array to then loop throught to hide thoes input elements a
 
 copy from here------------------------------------------------------------------------------------------------------------
 
-<script src="https://jamesriverdata.github.io/F1Go/F1Go.js" defer></script>
+<script src="https://jamesriverdata.github.io/F1Go/F1Go.js" type="module" defer></script>
+
 <script defer>
     function runInlineScript() {
         try {
@@ -63,7 +64,7 @@ copy from here------------------------------------------------------------------
     
     
 
-    
+
     
     
     
@@ -76,7 +77,7 @@ copy from here------------------------------------------------------------------
         } catch (error) {
             console.error("Error in runInlineScript:", error.message);
             // Retry after 100ms if radioButtonCaps is not available
-            setTimeout(runInlineScript, 100);
+            setTimeout(runInlineScript, 10);
         }
     }
     

@@ -6,43 +6,41 @@
         --label-gray: #666666; 
     }
 </style>
-<script src="https://jamesriverdata.github.io/F1Go/F1Go.js" defer></script>
+<script src="https://jamesriverdata.github.io/F1Go/F1Go.js" type="module" defer></script>
 
 <script defer>
-function runInlineScript() {
-    try {
-        if (typeof window.radioButtonCaps === 'function') {
-
-            //Write code here --------------------
-
-
-
-
-
+    function runInlineScript() {
+        try {
+            if (typeof window.radioButtonCaps === 'function') {
+    
+                //Write code here --------------------
+    
+    
+    
 
 
-
-            //------------------------------------
-
-            console.log("Function executed successfully.");
-        } else {
-            throw new Error("radioButtonCaps function not loaded yet");
+    
+                //------------------------------------
+    
+                console.log("Function executed successfully.");
+            } else {
+                throw new Error("radioButtonCaps function not loaded yet");
+            }
+        } catch (error) {
+            console.error("Error in runInlineScript:", error.message);
+            // Retry after 100ms if radioButtonCaps is not available
+            setTimeout(runInlineScript, 10);
         }
-    } catch (error) {
-        console.error("Error in runInlineScript:", error.message);
-        // Retry after 100ms if radioButtonCaps is not available
-        setTimeout(runInlineScript, 100);
     }
-}
-
-// Run the script initially
-setTimeout(runInlineScript, 100);
-/*
-radioVar
-waitForElement
-hideElement
-radioButtonCaps
-dropDownCaps
-hideHeader
-     */
-</script>
+    
+    // Run the script initially
+    setTimeout(runInlineScript, 100);
+    /*
+    radioVar
+    waitForElement
+    hideElement
+    radioButtonCaps
+    dropDownCaps
+    hideHeader
+         */
+    </script>
