@@ -128,7 +128,7 @@ function dropDownCaps() {
     const elements = document.querySelectorAll('.your-dropdown-class'); // Adjust selector as needed
     console.log('Form elements found, initializing dropdowns...');
     initializeDropdowns(elements);
-    setTimeout(monitorForNewDropdowns, 1000); // Continue monitoring for new dropdowns
+    setTimeout(dropDownCaps, 1000); // Continue monitoring for new dropdowns
 }
 
 function hideHeader() {
