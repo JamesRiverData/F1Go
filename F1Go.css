@@ -260,7 +260,7 @@
     
     
     #mb-formbuilder-container .fbTheme h3.section-header, #mb-formbuilder-container .formView h3.section-header {
-        padding-left: 9px!important;
+        padding-left: 0px!important;
         margin-bottom: -1em;
     }
     
