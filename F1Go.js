@@ -6,11 +6,11 @@ import { ip } from './ip.js';
 import { radioButtonCaps } from './radioButtonCaps.js';
 import { radioVar } from './radioVar.js';
 import { waitForElement } from './waitForElement.js';
-import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
+//import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
-console.log("Version 1.25");
+console.log("Version 1.26");
 
 // Attach functions to global scope
 globalThis.ip = ip;

@@ -1,6 +1,6 @@
 function modifyRemainingText() {
     // Select all spans with the class 'optionname' within divs with class 'radio'
-    let optionSpans = document.querySelectorAll('.radio .optionname');
+    let optionSpans = document.querySelectorAll('.radio');
 
     optionSpans.forEach(span => {
         // Check if the text includes 'remaining'
