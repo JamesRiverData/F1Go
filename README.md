@@ -92,6 +92,7 @@ copy from here------------------------------------------------------------------
     radioButtonCaps
     dropDownCaps
     hideHeader
+    radioMoneyButtonCaps
          */
     </script>
 

@@ -24,7 +24,7 @@ function observeDOMChanges() {
     // Start observing the document body for changes
     observer.observe(document.body, { childList: true, subtree: true });
 }
-function radioButtonCaps(){
+function radioMoneyButtonCaps(){
     observeDOMChanges(); // Start observing the DOM for changes
     modifyRemainingText(); // Modify text initially
 }
@@ -34,4 +34,4 @@ function radioButtonCaps(){
 
 
 
-export { radioButtonCaps };
+export { radioMoneyButtonCaps };
