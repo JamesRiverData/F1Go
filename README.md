@@ -52,6 +52,8 @@ hide element takes an array to then loop throught to hide thoes input elements a
 
 copy from here------------------------------------------------------------------------------------------------------------
 
+
+
 <script src="https://jamesriverdata.github.io/F1Go/F1Go.js" type="module" defer></script>
 
 <script defer>
@@ -94,13 +96,24 @@ copy from here------------------------------------------------------------------
     </script>
 
 
+
 TO here -----------------------------------------------------------------------------------------------------------------------
+
 using this will make sure that it has loaded the funntions you are using and has a lot of the funcions names below
 
 
-to use the css I would use this 
+
+
+
+
+
+
+
+If using the CSS
 
 copy form here ----------------------------------------------------------------------------------------------------------------
+
+
 
 <link href="https://jamesriverdata.github.io/F1Go/F1Go.css" rel="stylesheet">
 <style>
@@ -111,7 +124,12 @@ copy form here -----------------------------------------------------------------
 }
 </style>
 
+
+
 to here -=----------------------------------------------------------------------------------------------------------------------
+
+
+
 
 
 This will make it so you can still change the varables in the code. 
