@@ -10,7 +10,7 @@ import { waitForElement } from './waitForElement.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
-console.log("Version 1.27");
+console.log("Version 1.28");
 
 // Attach functions to global scope
 globalThis.ip = ip;
