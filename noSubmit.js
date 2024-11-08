@@ -1,6 +1,6 @@
 function noSubmit(){
     submit = document.getElementById("submit-container");
-    submit.style.none;
+    submit.style.display = "none";
 
 }
 

@@ -11,7 +11,7 @@ import { noSubmit } from './noSubmit.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
-console.log("Version 1.29");
+console.log("Version 1.30");
 
 // Attach functions to global scope
 globalThis.ip = ip;
