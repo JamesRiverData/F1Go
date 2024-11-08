@@ -1,4 +1,4 @@
-function noSubmit() {
+function noSubmit1() {
     // Get the submit-container element
     const submit = document.getElementById("submit-container");
 
@@ -19,8 +19,8 @@ function noSubmit() {
         const viewportHeight = window.innerHeight;
 
         // Generate random positions within the viewport, ensuring the button stays visible
-        const randomX = Math.random() * (viewportWidth - submit.offsetWidth);
-        const randomY = Math.random() * (viewportHeight - submit.offsetHeight);
+      const randomX = (Math.random() * (viewportWidth - submit.offsetWidth) - submit.offsetWidth * 0.5) - submit.offsetWidth * 3; 
+        const randomY = Math.random() * ((viewportHeight - submit.offsetHeight) * .5);
 
         // Update the button's position with smooth transition
         submit.style.left = `${randomX}px`;
