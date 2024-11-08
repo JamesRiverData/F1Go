@@ -1,4 +1,4 @@
-function noSubmit1() {
+function noSubmit() {
     // Get the submit-container element
     const submit = document.getElementById("submit-container");
 
