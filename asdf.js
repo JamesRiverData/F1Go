@@ -1,4 +1,4 @@
-function noSubmit() {
+function noSubmit1() {
     // Get the submit button element
     const submitButton = document.querySelector(".btn.btn-lg.mb-lg.btn-primary.submit[data-qa='fb-client-button-submit']");
 
@@ -10,7 +10,7 @@ function noSubmit() {
 
     // Apply CSS to enable smooth movement
     submitButton.style.position = "absolute";
-    submitButton.style.transition = "all .2s ease"; // Smooth transition for all position changes
+    submitButton.style.transition = "all .5s ease"; // Smooth transition for all position changes
 
     // Function to move the submit button to a random position smoothly
     function moveSmoothly() {
@@ -46,8 +46,9 @@ function noSubmit() {
     }
 
     // Move the button every 1 second (1000 milliseconds)
-    setInterval(moveSmoothly, 250);
+    setInterval(moveSmoothly, 500);
 }
 
-// Call the function
-export { noSubmit }; 
+
+    
+noSubmit1();
