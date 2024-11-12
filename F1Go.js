@@ -8,11 +8,12 @@ import { radioVar } from './radioVar.js';
 import { waitForElement } from './waitForElement.js';
 import { noSubmit } from './noSubmit.js';
 import { funSbumit } from './funSubmit.js';
+import { yesSubmit} from './yesSubmit.js';
 //import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
-console.log("Version 1.35");
+console.log("Version 1.36");
 
 // Attach functions to global scope
 globalThis.ip = ip;
@@ -24,3 +25,4 @@ globalThis.dropDownCaps = dropDownCaps;
 globalThis.hideHeader = hideHeader;
 globalThis.noSubmit = noSubmit;
 globalThis.funSbumit = funSbumit;
+globalThis.yesSubmit = yesSubmit;
