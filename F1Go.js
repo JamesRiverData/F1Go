@@ -13,7 +13,7 @@ import { yesSubmit} from './yesSubmit.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
-console.log("Version 1.38");
+console.log("Version 1.39");
 
 // Attach functions to global scope
 globalThis.ip = ip;

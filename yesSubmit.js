@@ -7,18 +7,11 @@ function yesSubmit() {
     }
 
     // Remove the preventions to allow normal submission
-    textInput1.removeEventListener("keydown", preventSubmitOnEnter);
     form.removeEventListener("submit", preventSubmit);
 }
 
 // Call the appropriate function based on the input value change
-textInput1.addEventListener("change", function() {
-    if (textInput1.value === "john") {
-        noSubmit();
-    } else {
-        yesSubmit();
-    }
-});
+
 
 
 // Call the function

@@ -12,12 +12,6 @@ function noSubmit() {
     submitButton.style.visibility = "hidden";
     submitButton.disabled = true;
 
-    // Prevent form submission on Enter key in the input field
-    textInput1.addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-        }
-    });
 
     // Prevent form submission entirely, in case of clicks or other triggers
     form.addEventListener("submit", function(event) {
