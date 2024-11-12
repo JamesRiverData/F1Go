@@ -14,9 +14,7 @@ function noSubmit() {
 
 
     // Prevent form submission entirely, in case of clicks or other triggers
-    form.addEventListener("submit", function(event) {
-        event.preventDefault();
-    });
+
 }
 
 
