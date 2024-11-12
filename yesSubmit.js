@@ -22,4 +22,4 @@ textInput1.addEventListener("change", function() {
 
 
 // Call the function
-export { noSubmit }; 
+export { yesSubmit }; 
