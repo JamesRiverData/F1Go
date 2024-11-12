@@ -1,16 +1,25 @@
-function noSubmit() {
-    // Get the submit button element
+function yesSubmit() {
+    // Show and enable the submit button
     const submitButton = document.querySelector(".btn.btn-lg.mb-lg.btn-primary.submit[data-qa='fb-client-button-submit']");
-
-    // Check if the element exists
-    if (!submitButton) {
-        console.error("Button with the specified attributes not found.");
-        return;
+    if (submitButton) {
+        submitButton.style.visibility = "visible";
+        submitButton.disabled = false;
     }
 
-    // Apply CSS to enable smooth movement
-    submitButton.style.visibility = "visible";
+    // Remove the preventions to allow normal submission
+    textInput1.removeEventListener("keydown", preventSubmitOnEnter);
+    form.removeEventListener("submit", preventSubmit);
 }
+
+// Call the appropriate function based on the input value change
+textInput1.addEventListener("change", function() {
+    if (textInput1.value === "john") {
+        noSubmit();
+    } else {
+        yesSubmit();
+    }
+});
+
 
 // Call the function
 export { noSubmit }; 
