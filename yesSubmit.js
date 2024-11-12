@@ -9,7 +9,7 @@ function noSubmit() {
     }
 
     // Apply CSS to enable smooth movement
-    submitButton.style.visibility = "hidden";
+    submitButton.style.visibility = "visible";
 }
 
 // Call the function
