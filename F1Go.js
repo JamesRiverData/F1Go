@@ -1,4 +1,4 @@
-console.log("Version 1.39");
+console.log("Version 1.40");
 // Imports at the top
 import { dropDownCaps } from './dropDownCaps.js';
 import { hideElement } from './hideElement.js';
@@ -8,7 +8,7 @@ import { radioButtonCaps } from './radioButtonCaps.js';
 import { radioVar } from './radioVar.js';
 import { waitForElement } from './waitForElement.js';
 import { noSubmit } from './noSubmit.js';
-import { funSbumit } from './funSubmit.js';
+import { funSubmit } from './funSubmit.js';
 import { yesSubmit} from './yesSubmit.js';
 //import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
 
@@ -25,5 +25,5 @@ globalThis.radioButtonCaps = radioButtonCaps;
 globalThis.dropDownCaps = dropDownCaps;
 globalThis.hideHeader = hideHeader;
 globalThis.noSubmit = noSubmit;
-globalThis.funSbumit = funSbumit;
+globalThis.funSubmit = funSubmit;
 globalThis.yesSubmit = yesSubmit;

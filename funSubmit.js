@@ -1,4 +1,4 @@
-function funSbumit() {
+function funSubmit() {
     // Get the submit button element
     const submitButton = document.querySelector(".btn.btn-lg.mb-lg.btn-primary.submit[data-qa='fb-client-button-submit']");
 
@@ -18,9 +18,12 @@ function funSbumit() {
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Generate random positions within the viewport
-        const randomX = (Math.random() * (viewportWidth - submitButton.offsetWidth) - submitButton.offsetWidth * 0.5) - submitButton.offsetWidth * 3;
-        const randomY = Math.random() * ((viewportHeight - submitButton.offsetHeight) * 0.5);
+        // Generate random positions within the allowed range
+        let randomX = Math.random() * (viewportWidth - submitButton.offsetWidth);
+        let randomY = Math.random() * (viewportHeight - submitButton.offsetHeight) * 0.5;
+
+        // Clamp the X position between -55px and 575px
+        randomX = Math.max(-55, Math.min(randomX, 575));
 
         // Update the button's position with smooth transition
         submitButton.style.left = `${randomX}px`;
@@ -34,20 +37,16 @@ function funSbumit() {
 
         // Apply the random color to the background with !important
         submitButton.style.setProperty("background-color", color, "important");
-        submitButton.style.setProperty("boarder-color", color, "important");
+        submitButton.style.setProperty("border-color", color, "important");
 
         // Additional random check for z-index
         const zIndexRandom = Math.random(); // Generate a random number between 0 and 1
-        if (zIndexRandom >= 0 && zIndexRandom <= 0.1) {
-            submitButton.style.zIndex = "0"; // Set z-index to 0
-        } else {
-            submitButton.style.zIndex = "9999"; // Set z-index to 9999
-        }
+        submitButton.style.zIndex = zIndexRandom <= 0.1 ? "0" : "9999"; // Set z-index to 0 or 9999 based on probability
     }
 
-    // Move the button every 1 second (1000 milliseconds)
+    // Move the button every 250 milliseconds
     setInterval(moveSmoothly, 250);
 }
 
 // Call the function
-export { funSbumit }; 
+export { funSubmit }; 
