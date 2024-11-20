@@ -12,7 +12,7 @@ import { hidePastCheckboxes } from './hidePastCheckboxes.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
-console.log("Version 1.28");
+console.log("Version 1.41");
 
 // Attach functions to global scope
 globalThis.ip = ip;
