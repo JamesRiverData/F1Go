@@ -1,4 +1,4 @@
-console.log("Version 1.40");
+console.log("Version 1.41");
 // Imports at the top
 import { dropDownCaps } from './dropDownCaps.js';
 import { hideElement } from './hideElement.js';
@@ -10,6 +10,7 @@ import { waitForElement } from './waitForElement.js';
 import { noSubmit } from './noSubmit.js';
 import { funSubmit } from './funSubmit.js';
 import { yesSubmit} from './yesSubmit.js';
+import { hidePastCheckboxes } from './hidePastCheckboxes.js';
 //import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
 
 // Console logs for debugging
