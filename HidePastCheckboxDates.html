@@ -1,0 +1,84 @@
+<link href="https://jamesriverdata.github.io/F1Go/F1Go.css" rel="stylesheet">
+<style>
+    :root {
+        --primary-color: #d33230;
+        --dark-red: #990000; 
+        --label-gray: #666666; 
+    }
+.col-xs-12.section-header.fieldset-header h3 span {
+    display: none;
+}
+
+body {
+background-color: #d33230;
+}
+.fbTheme.container-fluid.default {
+    border-color: #fada60 !important;
+    border-width: 15px;
+    border-style: ridge}
+
+</style>
+<script src="https://jamesriverdata.github.io/F1Go/F1Go.js" type="module" defer></script>
+
+<script defer>
+    function runInlineScript() {
+        try {
+            if (typeof window.radioButtonCaps === 'function') {
+    
+                //Write code here --------------------
+    
+    
+        // Get the current date/time
+        const now = new Date();
+        console.log("Date: ", now);
+
+        // Select the checkbox with the specific field ID
+        const checkbox = document.querySelector('#scheduleForm input[value^="c250ac98-2b4b-4a09-bcbe-1e70e568d972"]');
+        if (checkbox) {
+            // Get the value of the checkbox and extract the part after the "_"
+            const value = checkbox.getAttribute('value');
+            const dateTimeString = value.split('_')[1]; // Splits by "_" and takes the second part
+            console.log("Extracted Date/Time String: ", dateTimeString);
+
+            if (dateTimeString) {
+                const checkboxDateTime = new Date(dateTimeString);
+
+                // Check if the date/time has passed
+                if (checkboxDateTime < now) {
+                    // Hide the checkbox
+                    checkbox.closest('label').classList.add('hidden');
+                    console.log(`Hiding checkbox with value: ${value}`);
+                } else {
+                    console.log(`Checkbox with value: ${value} is still valid.`);
+                }
+            } else {
+                console.warn(`Could not extract a date/time from value: ${value}`);
+            }
+
+
+    
+             //------------------------------------
+    
+             console.log("Function executed successfully.");
+            } else {
+                throw new Error("radioButtonCaps function not loaded yet");
+            }
+        } catch (error) {
+            console.error("Error in runInlineScript:", error.message);
+            // Retry after 100ms if radioButtonCaps is not available
+            setTimeout(runInlineScript, 10);
+        }
+    }
+    
+    // Run the script initially
+    setTimeout(runInlineScript, 100);
+    /*
+    radioVar
+    waitForElement
+    hideElement
+    radioButtonCaps
+    dropDownCaps
+    hideHeader
+    radioMoneyButtonCaps
+         */
+    </script>
