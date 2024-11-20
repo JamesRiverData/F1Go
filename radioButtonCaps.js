@@ -3,28 +3,25 @@ function modifyRemainingText() {
     let optionSpans = document.querySelectorAll('.radio .optionname');
 
     optionSpans.forEach(span => {
-        // Check if the text includes 'remaining'
-        if (span.textContent.includes('remaining')) {
-            // Remove the ' - [number] remaining' part from the text
-            span.textContent = span.textContent.replace(/ - \d+ remaining/, '');
-            console.log('Modified text:', span.textContent);
-        }
+        // Continuously remove the " - [number] remaining" part from the text if it exists
+        span.textContent = span.textContent.replace(/ - \d+ remaining/, '');
     });
 }
 
 function observeDOMChanges() {
     const observer = new MutationObserver(mutations => {
         mutations.forEach(mutation => {
-            if (mutation.type === 'childList') {
-                modifyRemainingText(); // Modify text when changes are detected
+            if (mutation.type === 'childList' || mutation.type === 'characterData') {
+                modifyRemainingText(); // Modify text immediately when any changes are detected
             }
         });
     });
 
     // Start observing the document body for changes
-    observer.observe(document.body, { childList: true, subtree: true });
+    observer.observe(document.body, { childList: true, characterData: true, subtree: true });
 }
-function radioButtonCaps(){
+
+function radioButtonCaps() {
     observeDOMChanges(); // Start observing the DOM for changes
     modifyRemainingText(); // Modify text initially
 }
