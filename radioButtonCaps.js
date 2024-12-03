@@ -3,29 +3,28 @@ function modifyRemainingText() {
     let optionSpans = document.querySelectorAll('.radio .optionname');
 
     optionSpans.forEach(span => {
-        // Continuously remove the " - [number] remaining" part from the text if it exists
-        span.textContent = span.textContent.replace(/ - \d+ remaining/, '');
+        if (span.textContent.includes(' - ')) {
+            span.textContent = span.textContent.replace(/ - \d+ remaining/, '');
+        }
     });
 }
 
 function observeDOMChanges() {
-    const observer = new MutationObserver(mutations => {
-        mutations.forEach(mutation => {
-            if (mutation.type === 'childList' || mutation.type === 'characterData') {
-                modifyRemainingText(); // Modify text immediately when any changes are detected
-            }
-        });
+    const targetElement = document.querySelector('.radio-container'); // Replace with a specific container
+    if (!targetElement) return;
+
+    const observer = new MutationObserver(() => {
+        modifyRemainingText();
     });
 
-    // Start observing the document body for changes
-    observer.observe(document.body, { childList: true, characterData: true, subtree: true });
+    // Start observing the target element for changes
+    observer.observe(targetElement, { childList: true, subtree: true });
 }
 
 function radioButtonCaps() {
-    observeDOMChanges(); // Start observing the DOM for changes
     modifyRemainingText(); // Modify text initially
+    observeDOMChanges(); // Start observing the DOM for changes
 }
-
 
 
 
