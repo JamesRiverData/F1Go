@@ -1,4 +1,4 @@
-console.log("Version 1.42");
+console.log("Version 1.5");
 // Imports at the top
 import { dropDownCaps } from './dropDownCaps.js';
 import { hideElement } from './hideElement.js';
@@ -11,6 +11,8 @@ import { noSubmit } from './noSubmit.js';
 import { funSubmit } from './funSubmit.js';
 import { yesSubmit} from './yesSubmit.js';
 import { hidePastCheckboxes } from './hidePastCheckboxes.js';
+import { toggleRadioExclude } from './toggleRadioExclude.js';
+import { toggleRadioInclude } from './toggleRadioInclude.js';
 //import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
 
 // Console logs for debugging
@@ -29,3 +31,5 @@ globalThis.noSubmit = noSubmit;
 globalThis.funSubmit = funSubmit;
 globalThis.yesSubmit = yesSubmit;
 globalThis.hidePastCheckboxes = hidePastCheckboxes;
+globalThis.toggleRadioExclude = toggleRadioExclude;
+globalThis.toggleRadioInclude = toggleRadioInclude;
