@@ -42,6 +42,15 @@ hide element takes an array to then loop throught to hide thoes input elements a
     this will take a text box number in as a string but will hide it and save their ip to it.  
 
 
+    toggleRadioInlude
+    Function will take a string and then array. The first string is the Field ID EXAMPLE 7c41ff26-d8ff-41a2-986d-bbbd2f05fe0c. The secound is an array of strings. The Field ID is the ID of the raido button you want to be
+    the control. It will be what is  hidding options on the other radio buttons. The array of strings are the values of the options in the array. It will then contiue showing the value of option chosen and hide all other values. EXAMPLE if array had ["adult", "teen", "child"]. then it would look for these values in the first radio button. Lets say the button with value adult was chosen. Then any radio button (not the control radio buttons) with values teen or child will be hidden. 
+
+    toggleRadioExlude
+    This function will only take in a string. It will be a field ID. Example 7c41ff26-d8ff-41a2-986d-bbbd2f05fe0c. It will take the field ID and make that radio button the control. It will then hide any radio button with the same value as the option chosen in the 
+    control radio button. 
+
+
 
 
 
@@ -86,13 +95,19 @@ copy from here------------------------------------------------------------------
     // Run the script initially
     setTimeout(runInlineScript, 100);
     /*
-    radioVar
-    waitForElement
-    hideElement
-    radioButtonCaps
-    dropDownCaps
-    hideHeader
-    radioMoneyButtonCaps
+ip
+radioVar
+waitForElement
+hideElement
+radioButtonCaps
+dropDownCaps
+hideHeader
+noSubmit
+funSubmit
+yesSubmit
+hidePastCheckboxes
+toggleRadioExlude
+toggleRadioInlude
          */
     </script>
 
