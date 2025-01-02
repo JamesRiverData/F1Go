@@ -1,4 +1,6 @@
 function toggleRadioExclude(fieldName) {
+    const hiddenOptions = new Set(); // Track options hidden by this function
+
     function waitForField() {
         const interval = setInterval(() => {
             const controllingRadio = document.querySelector(`input[name="${fieldName}"]`);
@@ -64,12 +66,16 @@ function toggleRadioExclude(fieldName) {
         allRadios.forEach(radio => {
             const optionValue = radio.value;
 
-            if ((optionValue.includes(selectedValue))) {
+            if (optionValue.includes(selectedValue)) {
                 console.log(`Hiding radio button with value: ${optionValue}`);
+                hiddenOptions.add(radio); // Track the hidden radio
                 radio.closest('.radio').style.display = 'none';
-            } else {
+            } else if (hiddenOptions.has(radio)) {
                 console.log(`Showing radio button with value: ${optionValue}`);
                 radio.closest('.radio').style.display = '';
+                hiddenOptions.delete(radio); // Remove from the tracked hidden options
+            } else {
+                console.log(`Skipping unhiding radio button with value: ${optionValue} as it wasn't hidden by this function.`);
             }
         });
     }
