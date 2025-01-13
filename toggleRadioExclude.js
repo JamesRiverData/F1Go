@@ -1,18 +1,18 @@
-function toggleRadioExclude(fieldName) {
-    const hiddenOptions = new Set(); // Track options hidden by this function
+const globalHiddenOptions = new Map(); // Shared map to track visibility globally
 
+function toggleRadioExclude(fieldName) {
     function waitForField() {
         const interval = setInterval(() => {
             const controllingRadio = document.querySelector(`input[name="${fieldName}"]`);
             if (controllingRadio) {
                 console.log("Found the controlling radio field. Initializing...");
-                clearInterval(interval); // Stop looking once the field is found
-                initialize(); // Run the initialization logic
+                clearInterval(interval);
+                initialize();
                 monitorElement(`input[name="${fieldName}"]`, waitForField);
             } else {
                 console.log("Controlling radio field not found yet. Retrying...");
             }
-        }, 500); // Check every 500ms
+        }, 500);
     }
 
     function monitorElement(selector, waitForField) {
@@ -23,9 +23,9 @@ function toggleRadioExclude(fieldName) {
             } else {
                 console.log(`${selector} is gone or hidden. Running waitForField...`);
                 clearInterval(interval);
-                waitForField(); // Restart the wait process
+                waitForField();
             }
-        }, 500); // Check every 500ms
+        }, 500);
     }
 
     function initialize() {
@@ -68,14 +68,12 @@ function toggleRadioExclude(fieldName) {
 
             if (optionValue.includes(selectedValue)) {
                 console.log(`Hiding radio button with value: ${optionValue}`);
-                hiddenOptions.add(radio); // Track the hidden radio
-                radio.closest('.radio').style.display = 'none';
-            } else if (hiddenOptions.has(radio)) {
+                setGlobalHiddenState(radio, true); // Track as hidden globally
+            } else if (shouldUnhide(radio)) {
                 console.log(`Showing radio button with value: ${optionValue}`);
-                radio.closest('.radio').style.display = '';
-                hiddenOptions.delete(radio); // Remove from the tracked hidden options
+                setGlobalHiddenState(radio, false); // Track as visible globally
             } else {
-                console.log(`Skipping unhiding radio button with value: ${optionValue} as it wasn't hidden by this function.`);
+                console.log(`Skipping unhiding radio button with value: ${optionValue} as it shouldn't be unhidden.`);
             }
         });
     }
@@ -89,6 +87,29 @@ function toggleRadioExclude(fieldName) {
         } else {
             console.log("No controlling radio button is currently selected.");
         }
+    }
+
+    // Utility to set the global hidden state
+    function setGlobalHiddenState(radio, hidden) {
+        const radioKey = getRadioKey(radio);
+        if (hidden) {
+            globalHiddenOptions.set(radioKey, true);
+            radio.closest('.radio').style.display = 'none';
+        } else {
+            globalHiddenOptions.delete(radioKey);
+            radio.closest('.radio').style.display = '';
+        }
+    }
+
+    // Utility to determine if a radio should be unhidden
+    function shouldUnhide(radio) {
+        const radioKey = getRadioKey(radio);
+        return !globalHiddenOptions.has(radioKey);
+    }
+
+    // Generate a unique key for a radio button
+    function getRadioKey(radio) {
+        return `${radio.name}:${radio.value}`;
     }
 
     waitForField();
