@@ -1,115 +1,91 @@
-const globalHiddenOptions = new Map(); // Shared map to track visibility globally
+const globalHiddenOptions = new Map(); // Shared map for tracking hidden radios
+const instances = []; // Shared array for tracking all function instances
 
 function toggleRadioExclude(fieldName) {
+    const hiddenOptions = new Set(); // Track options hidden by this function
+
+    // Register this instance
+    instances.push({ fieldName, hiddenOptions, toggleRadioOptions });
+
     function waitForField() {
         const interval = setInterval(() => {
             const controllingRadio = document.querySelector(`input[name="${fieldName}"]`);
             if (controllingRadio) {
-                console.log("Found the controlling radio field. Initializing...");
-                clearInterval(interval);
-                initialize();
+                clearInterval(interval); // Stop looking once the field is found
+                initialize(); // Run the initialization logic
                 monitorElement(`input[name="${fieldName}"]`, waitForField);
-            } else {
-                console.log("Controlling radio field not found yet. Retrying...");
             }
-        }, 500);
+        }, 500); // Check every 500ms
     }
 
     function monitorElement(selector, waitForField) {
         const interval = setInterval(() => {
             const element = document.querySelector(selector);
-            if (element) {
-                console.log(`${selector} is found. Monitoring continues...`);
-            } else {
-                console.log(`${selector} is gone or hidden. Running waitForField...`);
+            if (!element) {
                 clearInterval(interval);
-                waitForField();
+                waitForField(); // Restart the wait process
             }
-        }, 500);
+        }, 500); // Check every 500ms
     }
 
     function initialize() {
         const controllingRadios = document.querySelectorAll(`input[name="${fieldName}"]`);
 
         controllingRadios.forEach(radio => {
-            console.log(`Adding change event listener to controlling radio with value: ${radio.value}`);
-            radio.addEventListener('change', event => {
-                const selectedValue = event.target.value;
-                console.log(`Controlling radio changed to: ${selectedValue}`);
-                toggleRadioOptions(selectedValue);
-                console.log("Ending Radio Caps Function");
+            radio.addEventListener('change', () => {
+                const selectedValue = radio.value;
+                recheckAllInstances(selectedValue); // Trigger rechecking logic
             });
         });
 
         const allRadios = document.querySelectorAll('input[type="radio"]');
         allRadios.forEach(radio => {
-            console.log(`Adding change event listener to radio with value: ${radio.value}`);
             radio.addEventListener('change', () => {
-                console.log(`Radio button with value ${radio.value} changed`);
                 resetControllingRadio();
             });
         });
 
         const selectedControllingRadio = document.querySelector(`input[name="${fieldName}"]:checked`);
         if (selectedControllingRadio) {
-            console.log(`Initializing visibility state with selected controlling radio: ${selectedControllingRadio.value}`);
             toggleRadioOptions(selectedControllingRadio.value);
-        } else {
-            console.log("No controlling radio button is selected during initialization.");
         }
     }
 
     function toggleRadioOptions(selectedValue) {
-        console.log(`Toggling options based on the selected value: ${selectedValue}`);
         const allRadios = document.querySelectorAll(`input[type="radio"]:not([name="${fieldName}"])`);
 
         allRadios.forEach(radio => {
-            const optionValue = radio.value;
+            const optionKey = `${radio.name}:${radio.value}`;
+            const isHiddenByOther = globalHiddenOptions.has(optionKey);
 
-            if (optionValue.includes(selectedValue)) {
-                console.log(`Hiding radio button with value: ${optionValue}`);
-                setGlobalHiddenState(radio, true); // Track as hidden globally
-            } else if (shouldUnhide(radio)) {
-                console.log(`Showing radio button with value: ${optionValue}`);
-                setGlobalHiddenState(radio, false); // Track as visible globally
-            } else {
-                console.log(`Skipping unhiding radio button with value: ${optionValue} as it shouldn't be unhidden.`);
+            if (radio.value.includes(selectedValue)) {
+                if (!isHiddenByOther) {
+                    hiddenOptions.add(radio);
+                    globalHiddenOptions.set(optionKey, true); // Mark as hidden globally
+                    radio.closest('.radio').style.display = 'none';
+                }
+            } else if (hiddenOptions.has(radio)) {
+                hiddenOptions.delete(radio);
+                globalHiddenOptions.delete(optionKey); // Unmark as hidden globally
+                radio.closest('.radio').style.display = '';
             }
         });
     }
 
     function resetControllingRadio() {
-        console.log("Resetting controlling radio buttons...");
         const selectedControllingRadio = document.querySelector(`input[name="${fieldName}"]:checked`);
         if (selectedControllingRadio) {
-            console.log(`Currently selected controlling radio: ${selectedControllingRadio.value}`);
             toggleRadioOptions(selectedControllingRadio.value);
-        } else {
-            console.log("No controlling radio button is currently selected.");
         }
     }
 
-    // Utility to set the global hidden state
-    function setGlobalHiddenState(radio, hidden) {
-        const radioKey = getRadioKey(radio);
-        if (hidden) {
-            globalHiddenOptions.set(radioKey, true);
-            radio.closest('.radio').style.display = 'none';
-        } else {
-            globalHiddenOptions.delete(radioKey);
-            radio.closest('.radio').style.display = '';
-        }
-    }
-
-    // Utility to determine if a radio should be unhidden
-    function shouldUnhide(radio) {
-        const radioKey = getRadioKey(radio);
-        return !globalHiddenOptions.has(radioKey);
-    }
-
-    // Generate a unique key for a radio button
-    function getRadioKey(radio) {
-        return `${radio.name}:${radio.value}`;
+    function recheckAllInstances(selectedValue) {
+        instances.forEach(instance => {
+            const selectedControllingRadio = document.querySelector(`input[name="${instance.fieldName}"]:checked`);
+            if (selectedControllingRadio) {
+                instance.toggleRadioOptions(selectedControllingRadio.value);
+            }
+        });
     }
 
     waitForField();
