@@ -1,4 +1,4 @@
-console.log("Version 1.53");
+console.log("Version 1.54");
 // Imports at the top
 import { dropDownCaps } from './dropDownCaps.js';
 import { hideElement } from './hideElement.js';
