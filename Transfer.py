@@ -82,7 +82,7 @@ async def update_attendee_type(attendee_id):
 
 
 
-async def update_attendee_custom_fields(attendee_id, field_object):
+async def update_attendee_custom_fields(attendee_id, field_object, attendee_id_youth):
     url = f'https://api.brushfire.com/attendees/{attendee_id}/fieldscustom'
 
     headers = {
@@ -101,7 +101,33 @@ async def update_attendee_custom_fields(attendee_id, field_object):
     response = requests.post(url, headers=headers, json=payload)
 
     if response.status_code == 200:
-        print("✅ Successfully updated custom fields!")
+        print("✅ Successfully updated custom fields for rev gen student!")
+        url2 = f'https://api.brushfire.com/attendees/{attendee_id_youth}/fieldscustom'
+
+        object = [
+    {
+      "Id": "025f58c4-5c7d-4312-8447-0d2496b4d11d",
+      "Value": [{
+       "Id": "49142824-7a3d-45c4-ac71-3eee307ab049",
+       "Quantity": 1,
+       "Price": 0
+}
+]
+    }
+  ]
+        payload2 = {
+        "AccessKey": "pr2qd6tb7kq4jb4m",
+        "FieldValues": object,
+        "UpdateNewOnly": True
+    }
+        response2 = requests.post(url2, headers=headers, json=payload2)
+        if response2.status_code == 200:
+            print("✅ Successfully updated custom fields for youth student!")
+
+
+
+
+
         return True
     else:
         print(f"❌ Failed to update custom fields. Status code: {response.status_code}")
@@ -198,11 +224,6 @@ def transferAttendee(attendeeRev, attendeeYouth):
     return object_list
 
 
-
-
-
-
-
 # Get Youth attendee
 async def main():
     attendeeIdYouth, attendeeDataYouth = await confirm_attendee("What is the attendee number of the youth registration? ")
@@ -217,7 +238,7 @@ async def main():
 
         result = transferAttendee(updatedRevConAttendee, attendeeDataYouth)
 
-        await update_attendee_custom_fields(attendeeIdRevCon, result)
+        await update_attendee_custom_fields(attendeeIdRevCon, result, attendeeIdYouth)
 
         print("\n✅ Confirmed Attendees:")
         print(f"Youth Attendee ID: {attendeeIdYouth}")

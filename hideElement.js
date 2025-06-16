@@ -21,7 +21,7 @@ function hideElement(array) {
         if (allHidden) {
             console.log("All elements are hidden.");
         }
-    }, 500);
+    }, 50);
 }
 
 export { hideElement };
