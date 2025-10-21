@@ -24,13 +24,13 @@
     font-weight: bold !important;
     margin: 0rem auto -1rem auto;
     font-size: x-large !important;
-    color: var(--button-color) !important;
     border-style: outset;
     border-width: 2px;
     border-radius: 1rem;
     padding: 1rem;
-    max-width: 100% !important;
+    max-width: var(--button-width) !important;
     background-color: var(--button-bg-color);
+    color: var(--button-color) !important;
 }
 .radio.col-xs-12 span.optionname:hover {
     background-color: var(--button-hover-bg-color) !important;
@@ -39,8 +39,8 @@
 }
 #mb-formbuilder-container [type=radio]:checked+span {
     scale: 1.1 !important;
-    color: var(--button-selected-bg-color) !important;
-    background-color: var(--button-selected-color) !important;
+    color: var(--button-selected-color) !important;
+    background-color: var(--button-selected-bg-color) !important;
 }
 #mb-formbuilder-container .fbTheme [type=radio]+span::after, #mb-formbuilder-container .fbTheme [type=radio]:checked+span::before, #mb-formbuilder-container .fbTheme.forms-has-background [type=radio]+span::before {
   visibility: hidden !important;
