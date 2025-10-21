@@ -1,0 +1,11 @@
+#submit-container {
+    visibility: hidden;
+    height: 0px;
+    margin-bottom: -2rem;
+}
+
+form:has(input[type="email"]) #submit-container {
+    visibility: visible;
+    height: 6rem;
+    margin-bottom: 0;
+}

@@ -1,0 +1,51 @@
+
+button.btn.btn-lg.mb-lg.btn-primary.submit {
+    font-family: Alice !important;
+    font-size: 24pt !important;
+}
+#mb-formbuilder-container .checkbox label, #mb-formbuilder-container .radio label {
+    min-height: 20px;
+    padding-left: 20px !important;
+    width: 100%;
+}
+#mb-formbuilder-container .fbTheme [field-template-name=radio] .control-label {
+    visibility: hidden;
+    height: 0;
+    position: absolute;
+}
+#mb-formbuilder-container .formPreview .radio, #mb-formbuilder-container.directLink .radio {
+    padding-left: 0em;
+    margin-bottom: -1rem;
+}
+
+#mb-formbuilder-container .radio[class*=col-] .optionname {
+    padding: 20px 15px;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.radio.col-xs-12 span.optionname {
+    font-weight: bold !important;
+    font-family: Alice !important;
+    margin: 0rem auto -1rem auto;
+    font-size: x-large !important;
+    color: #666 !important;
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 1rem;
+    padding: 1rem;
+    max-width: 100% !important;
+    background-color: #ffe6e6;
+}
+.radio.col-xs-12 span.optionname:hover {
+    background-color: white !important;
+    transition-duration: 300ms !important;
+}
+#mb-formbuilder-container [type=radio]:checked+span {
+    scale: 1.1 !important;
+    color: white !important;
+    background-color: #ce1c1c !important;
+}
+#mb-formbuilder-container .fbTheme [type=radio]+span::after, #mb-formbuilder-container .fbTheme [type=radio]:checked+span::before, #mb-formbuilder-container .fbTheme.forms-has-background [type=radio]+span::before {
+  visibility: hidden !important;
+}
