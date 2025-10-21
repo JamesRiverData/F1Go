@@ -5,7 +5,7 @@
     width: 100%;
 }
 #mb-formbuilder-container .fbTheme [field-template-name=radio] .control-label {
-    visibility: hidden;
+    visibility: hidden !important;
     height: 0;
     position: absolute;
 }
@@ -28,7 +28,9 @@
     border-width: 2px;
     border-radius: 1rem;
     padding: 1rem;
-    max-width: var(--button-width) !important;
+    max-width: var(--button-maxwidth) !important;
+    min-width: var(--button-minwidth) !important;
+    width: var(--button-width) !important;
     background-color: var(--button-bg-color);
     color: var(--button-color) !important;
 }
@@ -38,7 +40,7 @@
     transition-duration: 300ms !important;
 }
 #mb-formbuilder-container [type=radio]:checked+span {
-    scale: 1.1 !important;
+    scale: var(--button-scale) !important;
     color: var(--button-selected-color) !important;
     background-color: var(--button-selected-bg-color) !important;
 }
@@ -48,4 +50,8 @@
 .radio.col-xs-12 {
     text-align-last: center;
     line-height: 2;
+}
+span.optionname::before
+{
+    visibility: hidden;
 }
