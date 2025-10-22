@@ -13,6 +13,7 @@ import { yesSubmit} from './yesSubmit.js';
 import { hidePastCheckboxes } from './hidePastCheckboxes.js';
 import { toggleRadioExclude } from './toggleRadioExclude.js';
 import { toggleRadioInclude } from './toggleRadioInclude.js';
+import { applyBlackoutsToCalendar } from './applyBlackoutsToCalendar.js';
 //import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
 
 // Console logs for debugging
@@ -33,3 +34,4 @@ globalThis.yesSubmit = yesSubmit;
 globalThis.hidePastCheckboxes = hidePastCheckboxes;
 globalThis.toggleRadioExclude = toggleRadioExclude;
 globalThis.toggleRadioInclude = toggleRadioInclude;
+globalThis.applyBlackoutsToCalendar = applyBlackoutsToCalendar;
