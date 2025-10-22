@@ -1,12 +1,11 @@
 // blackout-calendar.js
-// Revised for module export
+// ES module version: polls for a specific calendar, applies blackout days, accepts optional additional dates array, and configurable past/future blackout
 
 const DEBUG = true;
 const L = (...args)=> { if(DEBUG) console.log('[Blackout]', ...args); };
 
-// Default blackout list
-let defaultBlackoutDates = [
-];
+// No default blackout dates
+let defaultBlackoutDates = [];
 
 // Fetch optional external blackout dates
 fetch('/blackout-dates.json')
@@ -26,25 +25,22 @@ function formatYMD(d){
 const today = new Date();
 today.setHours(0,0,0,0);
 
-const disallowBeforeToday = true;
-const disallowAfterToday  = false;
-
-function waitForCalendar(inputName, extraDates){
+function waitForCalendar(inputName, extraDates, blockPast = false, blockFuture = false){
   const targetCalendar = document.querySelector(
     `input[name="${inputName}"]`
   )?.closest('.formbuilder-field')?.querySelector('.input-calendar');
 
   if (!targetCalendar) {
-    setTimeout(() => waitForCalendar(inputName, extraDates), 500);
+    setTimeout(() => waitForCalendar(inputName, extraDates, blockPast, blockFuture), 500);
     return;
   }
 
   L(`✅ Found calendar for input name: ${inputName}`);
 
-  applyToCalendar(targetCalendar, extraDates);
+  applyToCalendar(targetCalendar, extraDates, blockPast, blockFuture);
 
   const mo = new MutationObserver(() => {
-    setTimeout(() => applyToCalendar(targetCalendar, extraDates), 100);
+    setTimeout(() => applyToCalendar(targetCalendar, extraDates, blockPast, blockFuture), 100);
   });
   mo.observe(targetCalendar, { childList: true, subtree: true, attributes: true });
 
@@ -52,7 +48,7 @@ function waitForCalendar(inputName, extraDates){
     if (e.target.closest('.calendar-icon') || 
         e.target.closest('.input-calendar-field') || 
         e.target.closest('.navigation-wrapper .icon')) {
-      setTimeout(() => applyToCalendar(targetCalendar, extraDates), 150);
+      setTimeout(() => applyToCalendar(targetCalendar, extraDates, blockPast, blockFuture), 150);
     }
   }, true);
 
@@ -60,7 +56,7 @@ function waitForCalendar(inputName, extraDates){
   if (dateInput) dateInput.setAttribute('readonly','readonly');
 }
 
-function applyToCalendar(calEl, extraDates){
+function applyToCalendar(calEl, extraDates, blockPast, blockFuture){
   const navTitleEl = calEl.querySelector('.navigation-title');
   if (!navTitleEl) {
     L('✖ navigation-title not found');
@@ -98,8 +94,8 @@ function applyToCalendar(calEl, extraDates){
     cell.title = '';
 
     if (combinedBlackout.includes(dateStr)) blackoutCell(cell, 'This date is unavailable');
-    if (disallowBeforeToday && dateObj < today) blackoutCell(cell, 'Past dates not allowed');
-    if (disallowAfterToday && dateObj > today) blackoutCell(cell, 'Future dates not allowed');
+    if (blockPast && dateObj < today) blackoutCell(cell, 'Past dates not allowed');
+    if (blockFuture && dateObj > today) blackoutCell(cell, 'Future dates not allowed');
   });
 }
 
@@ -116,15 +112,11 @@ style.innerHTML = `
   .input-calendar .day.blackout {
     background-color:#eee !important;
     color:#888 !important;
-    text-decoration: line-through;
   }
 `;
 document.head.appendChild(style);
 
-
-
-//Example applyBlackoutsToCalendar('793cbb7a-a865-4b3e-a69c-2ecc2d77fd62', ['2025-10-25','2025-10-26']);
 // Export as module
-export function applyBlackoutsToCalendar(inputName, extraDates){
-  waitForCalendar(inputName, extraDates);
+export function applyBlackoutsToCalendar(inputName, extraDates = [], blockPast = false, blockFuture = false){
+  waitForCalendar(inputName, extraDates, blockPast, blockFuture);
 }
