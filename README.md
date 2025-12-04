@@ -144,9 +144,12 @@ copy form here -----------------------------------------------------------------
 
 to here -=----------------------------------------------------------------------------------------------------------------------
 
-Database architecture flowchart: https://app.diagrams.net/?src=about#G1PX7yGpj2qZ7z15_gQfU1XtTgBmwpX7QV#%7B%22pageId%22%3A%22E4TvLMoSpwqoScdtEkGw%22%7D
-
-
 
 
 This will make it so you can still change the varables in the code. 
+
+
+---
+
+
+Database architecture flowchart: https://app.diagrams.net/?src=about#G1PX7yGpj2qZ7z15_gQfU1XtTgBmwpX7QV#%7B%22pageId%22%3A%22E4TvLMoSpwqoScdtEkGw%22%7D
