@@ -310,5 +310,5 @@
 }
 
 #mb-formbuilder-container .form-group .ss__placeholder {
-    color: #666;
+    color: #666 !important;
 }
