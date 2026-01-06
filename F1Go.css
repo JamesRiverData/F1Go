@@ -261,7 +261,7 @@
     
     #mb-formbuilder-container .fbTheme h3.section-header, #mb-formbuilder-container .formView h3.section-header {
         padding-left: 0px!important;
-        margin-bottom: -1em;
+        margin-bottom: -1em !important;
     }
     
     /*Tighten up space between radios/checkboxes
