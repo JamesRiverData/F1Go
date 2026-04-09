@@ -1,10 +1,10 @@
 function modifyLabelText() {
     try {
-        let optionSpans = document.querySelectorAll('.label .field-label');
+        let optionSpans = document.querySelectorAll('.label input');
 
         optionSpans.forEach(span => {
-            if (span.textContent.includes('%')) {
-                span.textContent = span.textContent.replace(/ %+ /, '');
+            if (span.textContent.includes('%%')) {
+                span.textContent = span.textContent.replace(/%%.*/, '').trim();
             }
         });
     } catch (error) {
@@ -25,7 +25,7 @@ function observeDOMChangesWithPolling() {
 
 function addLabelListener() {
     try {
-        let labels = document.querySelectorAll('.label input[type="label"]');
+        let labels = document.querySelectorAll('.label input');
 
         labels.forEach(label => {
             if (!label.dataset.listenerAdded) { // Prevent duplicate listeners
