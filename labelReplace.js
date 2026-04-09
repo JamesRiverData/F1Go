@@ -1,6 +1,6 @@
 function modifyLabelText() {
     try {
-        let optionSpans = document.querySelectorAll('.label input');
+        let optionSpans = document.querySelectorAll('.control-label.field-label');
 
         optionSpans.forEach(span => {
             if (span.textContent.includes('%%')) {
@@ -25,7 +25,7 @@ function observeDOMChangesWithPolling() {
 
 function addLabelListener() {
     try {
-        let labels = document.querySelectorAll('.label input');
+        let labels = document.querySelectorAll('.control-label.field-label');
 
         labels.forEach(label => {
             if (!label.dataset.listenerAdded) { // Prevent duplicate listeners
