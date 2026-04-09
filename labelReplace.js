@@ -3,8 +3,8 @@ function modifyLabelText() {
         let optionSpans = document.querySelectorAll('.label .field-label');
 
         optionSpans.forEach(span => {
-            if (span.textContent.includes(' - ')) {
-                span.textContent = span.textContent.replace(/ - \d+ delete/, '');
+            if (span.textContent.includes('%')) {
+                span.textContent = span.textContent.replace(/ %+ /, '');
             }
         });
     } catch (error) {
