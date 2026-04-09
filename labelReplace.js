@@ -40,7 +40,7 @@ function addLabelListener() {
 
 function labelReplacing() {
     console.log("labelreplace is running...");
-    modifyRemainingText(); // Modify text initially
+    modifyLabelText(); // Modify text initially
     observeDOMChangesWithPolling(); // Start polling
     addLabelListener(); // Add event listeners for radio buttons
 }
