@@ -35,7 +35,7 @@ function toggleRadioExclude(fieldName) {
             radio.addEventListener('change', () => {
                 const selectedValue = radio.value;
 
-                clearOtherRadioGroups(); // 👈 clear selections first
+                clearTargetRadioGroups(); // 👈 only clears intended groups
                 recheckAllInstances(selectedValue);
             });
         });
@@ -53,24 +53,19 @@ function toggleRadioExclude(fieldName) {
         }
     }
 
-    function clearOtherRadioGroups() {
-        const allRadios = document.querySelectorAll(`input[type="radio"]:not([name="${fieldName}"])`);
-
-        const clearedGroups = new Set();
-
-        allRadios.forEach(radio => {
-            if (!clearedGroups.has(radio.name)) {
-                const checkedRadio = document.querySelector(`input[name="${radio.name}"]:checked`);
-                if (checkedRadio) {
-                    checkedRadio.checked = false;
-                }
-                clearedGroups.add(radio.name);
+    function clearTargetRadioGroups() {
+        targetNames.forEach(name => {
+            const checkedRadio = document.querySelector(`input[name="${name}"]:checked`);
+            if (checkedRadio) {
+                checkedRadio.checked = false;
             }
         });
     }
 
-    function toggleRadioOptions(selectedValue) {
-        const allRadios = document.querySelectorAll(`input[type="radio"]:not([name="${fieldName}"])`);
+    function toggleRadioExclude(fieldName, targetNames = []) {
+        const allRadios = targetNames
+            .map(name => document.querySelectorAll(`input[name="${name}"]`))
+            .flat();
 
         allRadios.forEach(radio => {
             const optionKey = `${radio.name}:${radio.value}`;
