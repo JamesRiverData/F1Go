@@ -1,4 +1,4 @@
-console.log("Version 1.56 2026-04-20 at 2:52 pm");
+console.log("Version 1.57 2026-04-20 at 3:04 pm");
 // Imports at the top
 import { dropDownCaps } from './dropDownCaps.js';
 import { hideElement } from './hideElement.js';
