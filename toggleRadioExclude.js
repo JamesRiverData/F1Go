@@ -72,7 +72,7 @@ function toggleRadioExclude(fieldName, targetNames = []) {
             const isHiddenByOther = globalHiddenOptions.has(optionKey);
 
             // 👉 adjust this condition if needed
-            if (radio.value.includes(selectedValue)) {
+            if (radio.value === selectedValue) {
                 if (!isHiddenByOther) {
                     hiddenOptions.add(radio);
                     globalHiddenOptions.set(optionKey, true);
