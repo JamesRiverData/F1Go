@@ -34,7 +34,9 @@ function toggleRadioExclude(fieldName) {
         controllingRadios.forEach(radio => {
             radio.addEventListener('change', () => {
                 const selectedValue = radio.value;
-                recheckAllInstances(selectedValue); // Trigger rechecking logic
+
+                clearOtherRadioGroups(); // 👈 clear selections first
+                recheckAllInstances(selectedValue);
             });
         });
 
@@ -49,6 +51,22 @@ function toggleRadioExclude(fieldName) {
         if (selectedControllingRadio) {
             toggleRadioOptions(selectedControllingRadio.value);
         }
+    }
+
+    function clearOtherRadioGroups() {
+        const allRadios = document.querySelectorAll(`input[type="radio"]:not([name="${fieldName}"])`);
+
+        const clearedGroups = new Set();
+
+        allRadios.forEach(radio => {
+            if (!clearedGroups.has(radio.name)) {
+                const checkedRadio = document.querySelector(`input[name="${radio.name}"]:checked`);
+                if (checkedRadio) {
+                    checkedRadio.checked = false;
+                }
+                clearedGroups.add(radio.name);
+            }
+        });
     }
 
     function toggleRadioOptions(selectedValue) {
