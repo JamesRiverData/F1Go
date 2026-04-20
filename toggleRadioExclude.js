@@ -1,7 +1,7 @@
 const globalHiddenOptions = new Map(); // Shared map for tracking hidden radios
 const instances = []; // Shared array for tracking all function instances
 
-function toggleRadioExclude(fieldName) {
+function toggleRadioExclude(fieldName, targetNames = []) {
     const hiddenOptions = new Set(); // Track options hidden by this function
 
     // Register this instance
@@ -11,11 +11,11 @@ function toggleRadioExclude(fieldName) {
         const interval = setInterval(() => {
             const controllingRadio = document.querySelector(`input[name="${fieldName}"]`);
             if (controllingRadio) {
-                clearInterval(interval); // Stop looking once the field is found
-                initialize(); // Run the initialization logic
+                clearInterval(interval);
+                initialize();
                 monitorElement(`input[name="${fieldName}"]`, waitForField);
             }
-        }, 500); // Check every 500ms
+        }, 500);
     }
 
     function monitorElement(selector, waitForField) {
@@ -23,9 +23,9 @@ function toggleRadioExclude(fieldName) {
             const element = document.querySelector(selector);
             if (!element) {
                 clearInterval(interval);
-                waitForField(); // Restart the wait process
+                waitForField();
             }
-        }, 500); // Check every 500ms
+        }, 500);
     }
 
     function initialize() {
@@ -35,7 +35,7 @@ function toggleRadioExclude(fieldName) {
             radio.addEventListener('change', () => {
                 const selectedValue = radio.value;
 
-                clearTargetRadioGroups(); // 👈 only clears intended groups
+                clearTargetRadioGroups(); // ✅ only clears intended groups
                 recheckAllInstances(selectedValue);
             });
         });
@@ -62,7 +62,7 @@ function toggleRadioExclude(fieldName) {
         });
     }
 
-    function toggleRadioExclude(fieldName, targetNames = []) {
+    function toggleRadioOptions(selectedValue) {
         const allRadios = targetNames
             .map(name => document.querySelectorAll(`input[name="${name}"]`))
             .flat();
@@ -71,15 +71,22 @@ function toggleRadioExclude(fieldName) {
             const optionKey = `${radio.name}:${radio.value}`;
             const isHiddenByOther = globalHiddenOptions.has(optionKey);
 
+            // 👉 adjust this condition if needed
             if (radio.value.includes(selectedValue)) {
                 if (!isHiddenByOther) {
                     hiddenOptions.add(radio);
-                    globalHiddenOptions.set(optionKey, true); // Mark as hidden globally
+                    globalHiddenOptions.set(optionKey, true);
+
+                    // ✅ also clear if it's currently selected
+                    if (radio.checked) {
+                        radio.checked = false;
+                    }
+
                     radio.closest('.radio').style.display = 'none';
                 }
             } else if (hiddenOptions.has(radio)) {
                 hiddenOptions.delete(radio);
-                globalHiddenOptions.delete(optionKey); // Unmark as hidden globally
+                globalHiddenOptions.delete(optionKey);
                 radio.closest('.radio').style.display = '';
             }
         });
@@ -92,9 +99,11 @@ function toggleRadioExclude(fieldName) {
         }
     }
 
-    function recheckAllInstances(selectedValue) {
+    function recheckAllInstances() {
         instances.forEach(instance => {
-            const selectedControllingRadio = document.querySelector(`input[name="${instance.fieldName}"]:checked`);
+            const selectedControllingRadio = document.querySelector(
+                `input[name="${instance.fieldName}"]:checked`
+            );
             if (selectedControllingRadio) {
                 instance.toggleRadioOptions(selectedControllingRadio.value);
             }
