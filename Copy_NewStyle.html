@@ -1,0 +1,170 @@
+
+<script src="https://jamesriverdata.github.io/F1Go/F1Go.js" type="module" defer></script>
+
+<script defer>
+    function runInlineScript() {
+        try {
+            if (typeof window.radioButtonCaps === 'function') {
+
+                //Write Functions here --------------------
+
+
+                radioVar();
+
+
+
+                //------------------------------------
+
+                console.log("Function executed successfully.");
+            } else {
+                throw new Error("radioButtonCaps function not loaded yet");
+            }
+        } catch (error) {
+            console.error("Error in runInlineScript:", error.message);
+            // Retry after 100ms if radioButtonCaps is not available
+            setTimeout(runInlineScript, 10);
+        }
+    }
+
+    // Run the script initially
+    setTimeout(runInlineScript, 100);
+    /*
+ip
+radioVar
+waitForElement
+hideElement
+radioButtonCaps
+dropDownCaps
+hideHeader
+noSubmit
+funSubmit
+yesSubmit
+hidePastCheckboxes
+toggleRadioExlude
+toggleRadioInlude
+         */
+</script>
+<script>
+    const checkbox = document.querySelector('#scheduleForm input[type=checkbox]');
+</script>
+
+<link href="https://jamesriverdata.github.io/F1Go/F1Go.css" rel="stylesheet">
+<link href="https://jamesriverdata.github.io/F1Go/F1_RadioToButton.css" rel="stylesheet">
+
+<style>
+
+    #mb-formbuilder-container .fbTheme [field-template-name=date] .form-group .control-label.field-label.col-xs-12 {
+        width: 100% !important;
+    }
+
+
+    #mb-formbuilder-container .fbTheme [field-template-name=date] .form-group .control-label.field-label.col-xs-12
+    #\30 66582f7-23fb-43c3-8f46-c47fa1150423 > div:nth-child(4) > div > div > label {
+        display: none
+    }
+    :root {
+        --primary-color: #00a3e0;
+        --dark-red: #990000;
+        --label-gray: #666666;
+        --button-color: #00A3E0;
+        --button-bg-color: #FFFFFF;
+        --button-hover-color: #007BB8;
+        --button-hover-bg-color: #cdebff;
+        --button-selected-color: #ffffff;
+        --button-selected-bg-color: #00a3e0;
+        --button-width: 100%;
+        --button-minwidth: 50%;
+        --button-maxwidth: 500px;
+        --button-scale: 1.05;
+    }
+
+
+
+
+
+    .form-container {
+        padding: 0 4vw 4vw 4vw !important;
+    }
+
+    img {
+        border-radius: 14px 14px 0px 0px !important;
+        padding: 0px !important;
+    }
+    #mb-formbuilder-container [type=checkbox]+span::before {
+        visibility: visible !important;
+    }
+    #mb-formbuilder-container .fbTheme .form-header.no-portal, #mb-formbuilder-container .formView .form-header.no-portal {
+        padding-bottom: 0;
+    }
+    #mb-formbuilder-container .fbTheme .form-header.no-portal .col-xs-12 {
+        padding: 0px !important;
+    }
+
+    #mb-formbuilder-container .fbTheme .form-group.col-xs-12 .control-label.field-label, #mb-formbuilder-container .field-controls .form-group.col-xs-12 .control-label.field-label, #mb-formbuilder-container .formView .form-group.col-xs-12 .control-label.field-label {
+        width: 100%;
+        /* border: solid; */
+    }
+
+    #mb-formbuilder-container .fbTheme .btn.btn-primary.submit, #mb-formbuilder-container .fbTheme .input-group-btn.btn-primary.submit, #mb-formbuilder-container .formView .btn.btn-primary.submit, #mb-formbuilder-container .formView .input-group-btn.btn-primary.submit {
+        font-size: 18px !important;
+        text-transform: uppercase !important;
+        font-weight: bolder !important;
+        letter-spacing: 3px !important;
+        width: 100% !important;
+        border-radius: 0.7rem !important;
+        padding: 12px 0px !important;
+        margin-top: -0.5rem !important;
+        background-color: #00a3e0 !important;
+        border-style: none !important;
+    }
+
+    #mb-formbuilder-container .fbTheme [field-template-name=date] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .fbTheme [field-template-name=email-address] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .fbTheme [field-template-name=payment-user] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .field-controls [field-template-name=date] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .field-controls [field-template-name=email-address] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .field-controls [field-template-name=payment-user] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .formView [field-template-name=date] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .formView [field-template-name=email-address] .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .formView [field-template-name=payment-user] .form-group .control-label.field-label.col-xs-12 * {
+        min-width: 100% !important;
+        position: initial !important;
+        font-size: medium !important;
+        font-weight: bold !important;
+        color: var(--label-gray) !important;
+        white-space: none;
+    }
+    #mb-formbuilder-container .fbTheme .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .field-controls .form-group .control-label.field-label.col-xs-12, #mb-formbuilder-container .formView .form-group .control-label.field-label.col-xs-12  {
+        min-width: 100% !important;
+    }
+    #mb-formbuilder-container .checkbox input[type=checkbox], #mb-formbuilder-container .checkbox-inline input[type=checkbox], #mb-formbuilder-container .radio input[type=radio], #mb-formbuilder-container .radio-inline input[type=radio] {
+        position: absolute !important;
+        margin-left: 0 !important;
+    }
+    #mb-formbuilder-container .checkbox[class*=col-], #mb-formbuilder-container .radio[class*=col-] {
+        padding-left: 20px !important;
+        padding-right: 5px !important;
+    }
+    .form-group.animate-on-load .col-xs-12.control-label {
+        margin-left: -21px !important;
+    }
+    #\30 66582f7-23fb-43c3-8f46-c47fa1150423 > div:nth-child(3) > div > div > label > span.help-text-top {
+        display: none !important;
+    }
+
+
+
+    label.field-label.control-label {
+        min-width: 100% !important;
+    }
+    h3.col-xs-12.section-header {
+        margin-bottom: -1rem !important;
+    }
+    .fbTheme.container-fluid.none {
+        max-width: 800px;
+        background-color: white;
+        border-style: none;
+        padding: 0 !important;
+        border-radius: 1rem!important;
+        border-color: var(--primary-color)!important;
+        background-color: white;
+    }
+    #mb-formbuilder-container .fbTheme .form-header img, #mb-formbuilder-container .formView .form-header img {
+        max-width: 100%;
+        margin-bottom: -3rem !important;
+    }
+
+
+</style>
