@@ -35,7 +35,8 @@ function waitForCalendar(
     extraDates,
     blockPast = false,
     blockFuture = false,
-    minYearsAgo = null
+    minYearsAgo = null,
+    blockedWeekdays = []
 ){
     const targetCalendar = document.querySelector(
         `input[name="${inputName}"]`
@@ -48,7 +49,8 @@ function waitForCalendar(
                     extraDates,
                     blockPast,
                     blockFuture,
-                    minYearsAgo
+                    minYearsAgo,
+                    blockedWeekdays
                 ),
             500);
 
@@ -62,7 +64,8 @@ function waitForCalendar(
         extraDates,
         blockPast,
         blockFuture,
-        minYearsAgo
+        minYearsAgo,
+        blockedWeekdays
     );
 
     const mo = new MutationObserver(() => {
@@ -72,7 +75,8 @@ function waitForCalendar(
                     extraDates,
                     blockPast,
                     blockFuture,
-                    minYearsAgo
+                    minYearsAgo,
+                    blockedWeekdays
                 ),
             100);
     });
@@ -95,7 +99,8 @@ function waitForCalendar(
                         extraDates,
                         blockPast,
                         blockFuture,
-                        minYearsAgo
+                        minYearsAgo,
+                        blockedWeekdays
                     ),
                 150);
         }
@@ -113,7 +118,8 @@ function applyToCalendar(
     extraDates,
     blockPast,
     blockFuture,
-    minYearsAgo = null
+    minYearsAgo = null,
+    blockedWeekdays = []
 ){
     const navTitleEl = calEl.querySelector('.navigation-title');
 
@@ -190,6 +196,12 @@ function applyToCalendar(
             return;
         }
 
+        // Block weekdays
+        if (blockedWeekdays.length > 0 && blockedWeekdays.includes(dateObj.getDay())) {
+            blackoutCell(cell, 'This day is unavailable');
+            return;
+        }
+
         // Block past dates
         if (blockPast) {
 
@@ -247,13 +259,15 @@ export function applyBlackoutsToCalendar(
     extraDates = [],
     blockPast = false,
     blockFuture = false,
-    minYearsAgo = null
+    minYearsAgo = null,
+    blockedWeekdays = []
 ){
     waitForCalendar(
         inputName,
         extraDates,
         blockPast,
         blockFuture,
-        minYearsAgo
+        minYearsAgo,
+        blockedWeekdays
     );
 }
