@@ -16,6 +16,7 @@ import { toggleRadioExclude } from './toggleRadioExclude.js';
 import { toggleRadioInclude } from './toggleRadioInclude.js';
 import { applyBlackoutsToCalendar } from './applyBlackoutsToCalendar.js';
 //import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
+import { populateFieldAfterDateTime, scheduleMultipleFieldPopulations } from './.idea/fieldHidePopulateWithTextAfterDate.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
@@ -37,3 +38,5 @@ globalThis.hidePastCheckboxes = hidePastCheckboxes;
 globalThis.toggleRadioExclude = toggleRadioExclude;
 globalThis.toggleRadioInclude = toggleRadioInclude;
 globalThis.applyBlackoutsToCalendar = applyBlackoutsToCalendar;
+globalThis.scheduleMultipleFieldPopulations = scheduleMultipleFieldPopulations;
+globalThis.populateFieldAfterDateTime = populateFieldAfterDateTime;
