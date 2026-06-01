@@ -1,0 +1,124 @@
+/**
+ * Populates a form field with text only after a specified date/time
+ *
+ * @param {string} fieldId - The form field ID/name to populate
+ * @param {string} textValue - The text to populate into the field
+ * @param {string|Date} dateTime - The date/time after which to populate (CST/Local Time)
+ *                                 Format: "2026-06-12 17:00" or JavaScript Date object
+ *
+ * Example usage:
+ * populateFieldAfterDateTime(
+ *   '2a343662-3a2f-448d-8824-892ec19e51ce',
+ *   'Special offer text',
+ *   '2026-06-12 17:00'
+ * );
+ */
+function populateFieldAfterDateTime(fieldId, textValue, dateTime) {
+  // Parse the dateTime parameter
+  let targetDateTime;
+
+  if (typeof dateTime === 'string') {
+    // Parse string format: "2026-06-12 17:00" or "2026-06-12T17:00"
+    targetDateTime = new Date(dateTime.replace(' ', 'T'));
+  } else if (dateTime instanceof Date) {
+    targetDateTime = dateTime;
+  } else {
+    console.error('populateFieldAfterDateTime: Invalid dateTime format');
+    return;
+  }
+
+  // Validate the parsed date
+  if (isNaN(targetDateTime.getTime())) {
+    console.error('populateFieldAfterDateTime: Could not parse dateTime:', dateTime);
+    return;
+  }
+
+  // Function to check and populate the field
+  function checkAndPopulate() {
+    const currentDateTime = new Date();
+
+    // Check if current time is after the target time
+    if (currentDateTime >= targetDateTime) {
+      // Find the form field
+      const field = document.querySelector(`input[name="${fieldId}"]`) ||
+                    document.querySelector(`textarea[name="${fieldId}"]`) ||
+                    document.getElementById(fieldId);
+
+      if (field) {
+        field.value = textValue;
+        console.log(`Field populated at ${currentDateTime.toLocaleString()}: "${textValue}"`);
+        return true; // Successfully populated
+      } else {
+        console.warn(`populateFieldAfterDateTime: Field not found with ID: ${fieldId}`);
+        return false;
+      }
+    }
+
+    return false; // Not yet time to populate
+  }
+
+  // Check immediately in case we're already past the target time
+  if (checkAndPopulate()) {
+    return;
+  }
+
+  // Calculate milliseconds until target time
+  const now = new Date();
+  const delayMs = targetDateTime.getTime() - now.getTime();
+
+  if (delayMs > 0) {
+    console.log(`populateFieldAfterDateTime: Scheduled to populate in ${Math.round(delayMs / 1000)} seconds`);
+
+    // Set a timeout to check at the target time
+    setTimeout(function() {
+      checkAndPopulate();
+    }, delayMs);
+
+    // Also set an interval to check every 10 seconds in case the page is still open
+    // This ensures population even if there are clock adjustments or timing issues
+    const checkInterval = setInterval(function() {
+      if (checkAndPopulate()) {
+        clearInterval(checkInterval);
+      }
+    }, 10000); // Check every 10 seconds
+  } else {
+    console.log('populateFieldAfterDateTime: Target time is in the past');
+  }
+}
+
+/**
+ * Convenience wrapper for scheduling multiple field populations at once
+ *
+ * @param {Array} schedules - Array of objects with fieldId, textValue, and dateTime
+ *
+ * Example usage:
+ * scheduleMultipleFieldPopulations([
+ *   {
+ *     fieldId: '2a343662-3a2f-448d-8824-892ec19e51ce',
+ *     textValue: 'Offer 1',
+ *     dateTime: '2026-06-12 17:00'
+ *   },
+ *   {
+ *     fieldId: '09767c52-2824-4fa0-b91d-9c8fcbd93d0e',
+ *     textValue: 'Offer 2',
+ *     dateTime: '2026-06-15 14:30'
+ *   }
+ * ]);
+ */
+function scheduleMultipleFieldPopulations(schedules) {
+  if (!Array.isArray(schedules)) {
+    console.error('scheduleMultipleFieldPopulations: Input must be an array');
+    return;
+  }
+
+  schedules.forEach(function(schedule) {
+    if (schedule.fieldId && schedule.textValue && schedule.dateTime) {
+      populateFieldAfterDateTime(schedule.fieldId, schedule.textValue, schedule.dateTime);
+    } else {
+      console.warn('scheduleMultipleFieldPopulations: Invalid schedule object', schedule);
+    }
+  });
+}
+
+export { populateFieldAfterDateTime, scheduleMultipleFieldPopulations };
+
