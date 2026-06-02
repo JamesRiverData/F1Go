@@ -16,7 +16,7 @@ import { toggleRadioExclude } from './toggleRadioExclude.js';
 import { toggleRadioInclude } from './toggleRadioInclude.js';
 import { applyBlackoutsToCalendar } from './applyBlackoutsToCalendar.js';
 //import { radioMoneyButtonCaps } from './radioMoneyButtonCaps.js';
-import { populateFieldAfterDateTime, scheduleMultipleFieldPopulations } from './.idea/fieldHidePopulateWithTextAfterDate.js';
+import { populateFieldAfterDateTime, scheduleMultipleFieldPopulations } from './fieldHidePopulateWithTextAfterDate.js';
 
 // Console logs for debugging
 console.log('F1Go.js has been loaded');
