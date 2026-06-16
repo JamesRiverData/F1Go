@@ -3,24 +3,92 @@ const instances = [];
 
 function toggleRadioExclude(fieldName) {
     const hiddenOptions = new Set();
+    const instanceId = Symbol(fieldName);
 
     instances.push({ fieldName, hiddenOptions, toggleRadioOptions });
 
+    function getAllRadios() {
+        return Array.from(document.querySelectorAll('input[type="radio"]'));
+    }
+
+    function getRadiosByName(name) {
+        return getAllRadios().filter(radio => radio.name === name);
+    }
+
+    function getCheckedRadio(name) {
+        return getRadiosByName(name).find(radio => radio.checked);
+    }
+
+    function getOptionKey(radio) {
+        return `${radio.name}:${radio.value}`;
+    }
+
+    function getRadioWrapper(radio) {
+        return radio.closest('.radio') || radio.closest('label') || radio.parentElement;
+    }
+
+    function hardUncheckRadio(radio) {
+        radio.checked = false;
+        radio.removeAttribute('checked');
+
+        radio.dispatchEvent(new Event('input', { bubbles: true }));
+        radio.dispatchEvent(new Event('change', { bubbles: true }));
+
+        if (window.jQuery) {
+            window.jQuery(radio).prop('checked', false).removeAttr('checked').trigger('change');
+        }
+    }
+
+    function clearRadioGroup(groupName) {
+        getRadiosByName(groupName).forEach(radio => {
+            hardUncheckRadio(radio);
+        });
+    }
+
+    function getAffectedGroupNames() {
+        const controllingValues = getRadiosByName(fieldName).map(radio => radio.value);
+        const affectedGroups = new Set();
+
+        getAllRadios().forEach(radio => {
+            if (radio.name === fieldName) return;
+
+            const isAffectedOption = controllingValues.some(value => {
+                return radio.value.includes(value);
+            });
+
+            if (isAffectedOption) {
+                affectedGroups.add(radio.name);
+            }
+        });
+
+        return affectedGroups;
+    }
+
+    function clearAffectedGroups() {
+        const affectedGroups = getAffectedGroupNames();
+
+        affectedGroups.forEach(groupName => {
+            clearRadioGroup(groupName);
+        });
+    }
+
     function waitForField() {
         const interval = setInterval(() => {
-            const controllingRadio = document.querySelector(`input[name="${fieldName}"]`);
+            const controllingRadio = getRadiosByName(fieldName)[0];
+
             if (controllingRadio) {
                 clearInterval(interval);
                 initialize();
-                monitorElement(`input[name="${fieldName}"]`, waitForField);
+                monitorElement(waitForField);
             }
         }, 500);
     }
 
-    function monitorElement(selector, waitForField) {
+    function monitorElement(waitForField) {
         const interval = setInterval(() => {
-            const element = document.querySelector(selector);
-            if (!element) {
+            const controllingRadio = getRadiosByName(fieldName)[0];
+
+            if (!controllingRadio) {
                 clearInterval(interval);
                 waitForField();
             }
@@ -28,70 +96,63 @@ function toggleRadioExclude(fieldName) {
     }
 
     function initialize() {
-        const controllingRadios = document.querySelectorAll(`input[name="${fieldName}"]`);
+        const controllingRadios = getRadiosByName(fieldName);
 
         controllingRadios.forEach(radio => {
             radio.addEventListener('change', () => {
+                clearAffectedGroups();
                 recheckAllInstances();
             });
         });
 
-        const selectedControllingRadio = document.querySelector(`input[name="${fieldName}"]:checked`);
+        const selectedControllingRadio = getCheckedRadio(fieldName);
+
         if (selectedControllingRadio) {
+            clearAffectedGroups();
             toggleRadioOptions(selectedControllingRadio.value);
         }
     }
 
-    function clearRadioGroup(groupName) {
-        const radios = document.querySelectorAll(`input[type="radio"][name="${groupName}"]`);
-
-        radios.forEach(radio => {
-            radio.checked = false;
-
-            // Helps form builders recognize that the value changed
-            radio.dispatchEvent(new Event('input', { bubbles: true }));
-            radio.dispatchEvent(new Event('change', { bubbles: true }));
-        });
-    }
-
     function toggleRadioOptions(selectedValue) {
-        const allRadios = document.querySelectorAll(`input[type="radio"]:not([name="${fieldName}"])`);
-        const affectedGroups = new Set();
+        const allRadios = getAllRadios().filter(radio => radio.name !== fieldName);
 
         allRadios.forEach(radio => {
-            if (radio.value.includes(selectedValue)) {
-                affectedGroups.add(radio.name);
-            }
-        });
-
-        affectedGroups.forEach(groupName => {
-            clearRadioGroup(groupName);
-        });
-
-        allRadios.forEach(radio => {
-            const optionKey = `${radio.name}:${radio.value}`;
-            const isHiddenByOther = globalHiddenOptions.has(optionKey);
-            const radioWrapper = radio.closest('.radio');
+            const optionKey = getOptionKey(radio);
+            const radioWrapper = getRadioWrapper(radio);
 
             if (!radioWrapper) return;
 
             if (radio.value.includes(selectedValue)) {
-                if (!isHiddenByOther) {
-                    hiddenOptions.add(radio);
-                    globalHiddenOptions.set(optionKey, true);
-                    radioWrapper.style.display = 'none';
+                hiddenOptions.add(optionKey);
+
+                if (!globalHiddenOptions.has(optionKey)) {
+                    globalHiddenOptions.set(optionKey, new Set());
                 }
-            } else if (hiddenOptions.has(radio)) {
-                hiddenOptions.delete(radio);
-                globalHiddenOptions.delete(optionKey);
-                radioWrapper.style.display = '';
+
+                globalHiddenOptions.get(optionKey).add(instanceId);
+
+                hardUncheckRadio(radio);
+                radioWrapper.style.display = 'none';
+            } else if (hiddenOptions.has(optionKey)) {
+                hiddenOptions.delete(optionKey);
+
+                const hiders = globalHiddenOptions.get(optionKey);
+
+                if (hiders) {
+                    hiders.delete(instanceId);
+
+                    if (hiders.size === 0) {
+                        globalHiddenOptions.delete(optionKey);
+                        radioWrapper.style.display = '';
+                    }
+                }
             }
         });
     }
 
     function recheckAllInstances() {
         instances.forEach(instance => {
-            const selectedControllingRadio = document.querySelector(`input[name="${instance.fieldName}"]:checked`);
+            const selectedControllingRadio = getCheckedRadio(instance.fieldName);
 
             if (selectedControllingRadio) {
                 instance.toggleRadioOptions(selectedControllingRadio.value);
