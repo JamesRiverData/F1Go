@@ -63,11 +63,13 @@ function toggleRadioExclude(fieldName) {
                     hiddenOptions.add(radio);
                     globalHiddenOptions.set(optionKey, true); // Mark as hidden globally
                     radio.closest('.radio').style.display = 'none';
+                    radio.closest('.radio').querySelector('input[type="radio"]').checked = false; // Uncheck the radio
                 }
             } else if (hiddenOptions.has(radio)) {
                 hiddenOptions.delete(radio);
                 globalHiddenOptions.delete(optionKey); // Unmark as hidden globally
                 radio.closest('.radio').style.display = '';
+                radio.closest('.radio').querySelector('input[type="radio"]').checked = false; // Uncheck the radio
             }
         });
     }
