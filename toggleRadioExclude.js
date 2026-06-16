@@ -28,7 +28,9 @@ function toggleRadioExclude(fieldName) {
     }
 
     function hardUncheckRadio(radio) {
-        radio.checked = false;
+        radio.value = null;
+        radio.otherText = null;
+        radio.otherValue= null;
         radio.removeAttribute('checked');
 
         radio.dispatchEvent(new Event('input', { bubbles: true }));
